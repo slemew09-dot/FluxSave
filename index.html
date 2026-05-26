@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>FluxSave - Fast Video Downloader</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#070b14;
+color:white;
+overflow-x:hidden;
+}
+
+/* BACKGROUND GLOW */
+
+.glow{
+position:fixed;
+width:400px;
+height:400px;
+border-radius:50%;
+filter:blur(150px);
+z-index:-1;
+opacity:0.15;
+}
+
+.glow.one{
+background:#00ffd5;
+top:-100px;
+left:-100px;
+}
+
+.glow.two{
+background:#8b5cf6;
+bottom:-100px;
+right:-100px;
+}
+
+/* NAVBAR */
+
+nav{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:22px 35px;
+background:rgba(255,255,255,0.03);
+backdrop-filter:blur(12px);
+border-bottom:1px solid rgba(255,255,255,0.05);
+position:sticky;
+top:0;
+z-index:999;
+}
+
+.logo{
+font-size:32px;
+font-weight:800;
+background:linear-gradient(90deg,#00ffd5,#8b5cf6);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+.menu{
+display:flex;
+gap:20px;
+}
+
+.menu a{
+text-decoration:none;
+color:#d1d5db;
+font-size:15px;
+transition:0.3s;
+}
+
+.menu a:hover{
+color:white;
+}
+
+/* HERO */
+
+.hero{
+min-height:90vh;
+display:flex;
+justify-content:center;
+align-items:center;
+padding:50px 20px;
+text-align:center;
+}
+
+.hero-box{
+max-width:850px;
+}
+
+.hero-box h1{
+font-size:68px;
+line-height:1.1;
+margin-bottom:20px;
+font-weight:800;
+}
+
+.hero-box span{
+background:linear-gradient(90deg,#00ffd5,#8b5cf6);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+.hero-box p{
+color:#9ca3af;
+font-size:18px;
+line-height:1.8;
+margin-bottom:40px;
+}
+
+/* DOWNLOAD BOX */
+
+.download-box{
+background:rgba(255,255,255,0.04);
+padding:20px;
+border-radius:30px;
+display:flex;
+gap:15px;
+align-items:center;
+backdrop-filter:blur(15px);
+border:1px solid rgba(255,255,255,0.05);
+box-shadow:0 10px 40px rgba(0,0,0,0.2);
+}
+
+.download-box input{
+flex:1;
+height:60px;
+border:none;
+outline:none;
+padding:0 20px;
+border-radius:18px;
+background:#111827;
+color:white;
+font-size:16px;
+}
+
+.download-box button{
+height:60px;
+padding:0 30px;
+border:none;
+border-radius:18px;
+background:linear-gradient(90deg,#00ffd5,#8b5cf6);
+color:white;
+font-weight:700;
+font-size:15px;
+cursor:pointer;
+transition:0.3s;
+}
+
+.download-box button:hover{
+transform:scale(1.05);
+}
+
+/* PLATFORM */
+
+.platforms{
+margin-top:30px;
+display:flex;
+justify-content:center;
+gap:15px;
+flex-wrap:wrap;
+}
+
+.platform{
+padding:12px 20px;
+background:rgba(255,255,255,0.04);
+border-radius:15px;
+font-size:14px;
+color:#d1d5db;
+border:1px solid rgba(255,255,255,0.05);
+}
+
+/* RESULT */
+
+.result{
+margin-top:40px;
+display:none;
+animation:fade 0.5s;
+}
+
+@keyframes fade{
+from{
+opacity:0;
+transform:translateY(20px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+.result-box{
+background:rgba(255,255,255,0.04);
+padding:25px;
+border-radius:30px;
+backdrop-filter:blur(12px);
+border:1px solid rgba(255,255,255,0.05);
+}
+
+.result-box img{
+width:100%;
+max-width:500px;
+border-radius:20px;
+margin-bottom:20px;
+}
+
+.result-box h2{
+margin-bottom:10px;
+}
+
+.result-box p{
+color:#9ca3af;
+margin-bottom:20px;
+}
+
+.download-btn{
+display:inline-block;
+padding:15px 30px;
+border-radius:16px;
+background:linear-gradient(90deg,#00ffd5,#8b5cf6);
+text-decoration:none;
+color:white;
+font-weight:700;
+}
+
+/* FEATURES */
+
+.features{
+padding:100px 20px;
+}
+
+.section-title{
+text-align:center;
+font-size:45px;
+margin-bottom:60px;
+font-weight:800;
+}
+
+.feature-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:25px;
+max-width:1200px;
+margin:auto;
+}
+
+.feature-card{
+background:rgba(255,255,255,0.04);
+padding:30px;
+border-radius:30px;
+backdrop-filter:blur(15px);
+border:1px solid rgba(255,255,255,0.05);
+transition:0.3s;
+}
+
+.feature-card:hover{
+transform:translateY(-10px);
+}
+
+.feature-card h3{
+margin-bottom:15px;
+font-size:22px;
+}
+
+.feature-card p{
+color:#9ca3af;
+line-height:1.8;
+}
+
+/* LIVE DOWNLOAD */
+
+.live-download{
+position:fixed;
+bottom:20px;
+left:20px;
+background:rgba(255,255,255,0.06);
+padding:15px 20px;
+border-radius:18px;
+backdrop-filter:blur(15px);
+font-size:14px;
+z-index:999;
+border:1px solid rgba(255,255,255,0.05);
+}
+
+/* FOOTER */
+
+footer{
+padding:40px 20px;
+text-align:center;
+color:#6b7280;
+border-top:1px solid rgba(255,255,255,0.05);
+margin-top:50px;
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+.hero-box h1{
+font-size:45px;
+}
+
+.download-box{
+flex-direction:column;
+}
+
+.download-box input{
+width:100%;
+}
+
+.download-box button{
+width:100%;
+}
+
+}
+
+</style>
+</head>
+<body>
+
+<!-- GLOW -->
+
+<div class="glow one"></div>
+<div class="glow two"></div>
+
+<!-- NAVBAR -->
+
+<nav>
+
+<div class="logo">
+FluxSave
+</div>
+
+<div class="menu">
+
+<a href="#">Home</a>
+<a href="#">Features</a>
+<a href="#">Support</a>
+
+</div>
+
+</nav>
+
+<!-- HERO -->
+
+<section class="hero">
+
+<div class="hero-box">
+
+<h1>
+Download Video <span>Without Limits</span>
+</h1>
+
+<p>
+Fast TikTok, YouTube & Instagram downloader with premium speed and modern interface.
+</p>
+
+<div class="download-box">
+
+<input
+type="text"
+id="videoInput"
+placeholder="Paste TikTok / YouTube / Instagram link..."
+>
+
+<button onclick="downloadVideo()">
+Download
+</button>
+
+</div>
+
+<div class="platforms">
+
+<div class="platform">
+TikTok
+</div>
+
+<div class="platform">
+YouTube
+</div>
+
+<div class="platform">
+Instagram
+</div>
+
+<div class="platform">
+Facebook
+</div>
+
+</div>
+
+<!-- RESULT -->
+
+<div class="result" id="result">
+
+<div class="result-box">
+
+<img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop">
+
+<h2>
+Video Ready
+</h2>
+
+<p>
+Your video has been processed successfully.
+</p>
+
+<a href="#" class="download-btn">
+Download MP4
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- FEATURES -->
+
+<section class="features">
+
+<h2 class="section-title">
+Why FluxSave?
+</h2>
+
+<div class="feature-grid">
+
+<div class="feature-card">
+
+<h3>
+⚡ Ultra Fast
+</h3>
+
+<p>
+Download video with blazing fast processing speed.
+</p>
+
+</div>
+
+<div class="feature-card">
+
+<h3>
+🎥 HD Quality
+</h3>
+
+<p>
+Supports HD and high quality video download.
+</p>
+
+</div>
+
+<div class="feature-card">
+
+<h3>
+🚫 No Watermark
+</h3>
+
+<p>
+TikTok download without annoying watermark.
+</p>
+
+</div>
+
+<div class="feature-card">
+
+<h3>
+📱 Mobile Friendly
+</h3>
+
+<p>
+Optimized for Android, iPhone and desktop devices.
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- LIVE DOWNLOAD -->
+
+<div class="live-download" id="liveDownload">
+🔥 User from Indonesia downloaded TikTok video
+</div>
+
+<!-- FOOTER -->
+
+<footer>
+© 2026 FluxSave • Fast Video Downloader
+</footer>
+
+<script>
+
+/* DOWNLOAD SIMULATION */
+
+function downloadVideo(){
+
+const input =
+document.getElementById("videoInput").value;
+
+if(input === ""){
+
+alert("Paste link terlebih dahulu");
+
+return;
+
+}
+
+document.getElementById("result")
+.style.display = "block";
+
+}
+
+/* LIVE DOWNLOAD */
+
+const downloads = [
+
+"🔥 User from Indonesia downloaded TikTok video",
+
+"🔥 User from Malaysia downloaded YouTube video",
+
+"🔥 User from Singapore downloaded Instagram Reel",
+
+"🔥 User from Thailand downloaded Facebook video"
+
+];
+
+function changeLive(){
+
+const random =
+downloads[Math.floor(Math.random()*downloads.length)];
+
+document.getElementById("liveDownload")
+.innerHTML = random;
+
+}
+
+setInterval(changeLive,5000);
+
+</script>
+
+</body>
+</html>
