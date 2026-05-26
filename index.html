@@ -9,7 +9,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
-
+html{
+scroll-behavior:smooth;
+}
 *{
 margin:0;
 padding:0;
@@ -22,7 +24,79 @@ background:#070b14;
 color:white;
 overflow-x:hidden;
 }
+/* LOADING */
 
+.loader{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:#070b14;
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+z-index:99999;
+transition:1s;
+}
+
+.loader-logo{
+font-size:50px;
+font-weight:800;
+background:linear-gradient(90deg,#00ffd5,#8b5cf6);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+margin-bottom:30px;
+animation:pulse 1.5s infinite;
+}
+
+.loader-bar{
+width:220px;
+height:10px;
+background:rgba(255,255,255,0.08);
+border-radius:30px;
+overflow:hidden;
+}
+
+.loader-fill{
+width:0%;
+height:100%;
+background:linear-gradient(90deg,#00ffd5,#8b5cf6);
+animation:loading 3s forwards;
+}
+
+@keyframes loading{
+to{
+width:100%;
+}
+}
+
+@keyframes pulse{
+0%{
+transform:scale(1);
+}
+50%{
+transform:scale(1.08);
+}
+100%{
+transform:scale(1);
+}
+}
+.download-buttons{
+display:flex;
+gap:15px;
+justify-content:center;
+flex-wrap:wrap;
+}
+
+.mp3-btn{
+background:linear-gradient(90deg,#ff512f,#dd2476);
+}
+
+.mp4-btn{
+background:linear-gradient(90deg,#00ffd5,#8b5cf6);
+}
 /* BACKGROUND GLOW */
 
 .glow{
@@ -330,7 +404,21 @@ width:100%;
 </style>
 </head>
 <body>
+<!-- LOADING SCREEN -->
 
+<div class="loader" id="loader">
+
+<div class="loader-logo">
+FluxSave
+</div>
+
+<div class="loader-bar">
+
+<div class="loader-fill"></div>
+
+</div>
+
+</div>
 <!-- GLOW -->
 
 <div class="glow one"></div>
@@ -346,9 +434,17 @@ FluxSave
 
 <div class="menu">
 
-<a href="#">Home</a>
-<a href="#">Features</a>
-<a href="#">Support</a>
+<a href="#home">
+Home
+</a>
+
+<a href="#features">
+Features
+</a>
+
+<a href="#support">
+Support
+</a>
 
 </div>
 
@@ -356,7 +452,7 @@ FluxSave
 
 <!-- HERO -->
 
-<section class="hero">
+<section class="hero" id="home">
 
 <div class="hero-box">
 
@@ -418,9 +514,17 @@ Video Ready
 Your video has been processed successfully.
 </p>
 
-<a href="#" class="download-btn">
-Download MP4
+<div class="download-buttons">
+
+<a href="#" class="download-btn mp4-btn">
+Download HD
 </a>
+
+<a href="#" class="download-btn mp3-btn">
+Download MP3
+</a>
+
+</div>
 
 </div>
 
@@ -432,7 +536,11 @@ Download MP4
 
 <!-- FEATURES -->
 
-<section class="features">
+<section class="features" id="features">
+
+<!-- FEATURES -->
+
+<section class="features" id="features">
 
 <h2 class="section-title">
 Why FluxSave?
@@ -491,24 +599,96 @@ Optimized for Android, iPhone and desktop devices.
 </div>
 
 </section>
+<!-- FOOTER -->
+<section class="features" id="support">
 
-<!-- LIVE DOWNLOAD -->
+<h2 class="section-title">
+Support Center
+</h2>
 
-<div class="live-download" id="liveDownload">
-🔥 User from Indonesia downloaded TikTok video
+<div class="feature-grid">
+
+<div class="feature-card">
+
+<h3>
+💬 WhatsApp Support
+</h3>
+
+<p>
+Contact the admin if you experience problems downloading videos.
+</p>
+
+<a href="https://wa.me/6283199803391" class="download-btn">
+Chat Admin
+</a>
+
 </div>
 
-<!-- FOOTER -->
+<div class="feature-card">
 
+<h3>
+⚡ Fast Response
+</h3>
+
+<p>
+Customer service is online and ready to help anytime.
+</p>
+
+</div>
+
+<div class="feature-card">
+
+<h3>
+🛠 Report Bug
+</h3>
+
+<p>
+Report bugs or website errors so they can be fixed immediately.
+</p>
+
+</div>
+
+</div>
+
+</section>
 <footer>
 © 2026 FluxSave • Fast Video Downloader
 </footer>
 
 <script>
+/* LOADER SEKALI SAJA */
 
+window.addEventListener("load",()=>{
+
+if(sessionStorage.getItem("loaded")){
+
+document.getElementById("loader")
+.style.display = "none";
+
+}else{
+
+sessionStorage.setItem("loaded","true");
+
+setTimeout(()=>{
+
+document.getElementById("loader")
+.style.opacity = "0";
+
+setTimeout(()=>{
+
+document.getElementById("loader")
+.style.display = "none";
+
+},1000)
+
+},3000)
+
+}
+
+})
 /* DOWNLOAD SIMULATION */
 
-function downloadVideo(){
+async function downloadVideo(){
 
 const input =
 document.getElementById("videoInput").value;
@@ -521,8 +701,146 @@ return;
 
 }
 
+try{
+
+/* TIKTOK */
+
+if(
+input.includes("tiktok.com") ||
+input.includes("vt.tiktok.com")
+){
+
+const response = await fetch(
+`https://www.tikwm.com/api/?url=${input}`
+);
+
+const data = await response.json();
+
 document.getElementById("result")
 .style.display = "block";
+
+document.querySelector(".result-box img")
+.src = data.data.cover;
+
+document.querySelector(".result-box h2")
+.innerHTML = data.data.title;
+
+document.querySelector(".normal-btn")
+.href = data.data.play;
+
+hdLink = data.data.hdplay;
+
+document.querySelector(".mp3-btn")
+.href = data.data.music;
+
+}
+
+/* YOUTUBE */
+
+else if(
+input.includes("youtube.com") ||
+input.includes("youtu.be")
+){
+
+const response = await fetch(
+"https://co.wuk.sh/api/json",
+{
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify({
+url:input
+})
+
+}
+);
+
+const data = await response.json();
+
+document.getElementById("result")
+.style.display = "block";
+
+document.querySelector(".result-box img")
+.src =
+"https://images.unsplash.com/photo-1611162618071-b39a2ec055fb?q=80&w=1200&auto=format&fit=crop";
+
+document.querySelector(".result-box h2")
+.innerHTML =
+"Youtube Video Ready";
+
+document.querySelector(".normal-btn")
+.href =
+data.url;
+
+hdLink = data.url;
+
+document.querySelector(".mp3-btn")
+.href =
+data.url;
+
+}
+
+/* INSTAGRAM */
+
+else if(
+input.includes("instagram.com")
+){
+
+const response = await fetch(
+"https://co.wuk.sh/api/json",
+{
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify({
+url:input
+})
+
+}
+);
+
+const data = await response.json();
+
+document.getElementById("result")
+.style.display = "block";
+
+document.querySelector(".result-box img")
+.src =
+"https://images.unsplash.com/photo-1611262588024-d12430b98920?q=80&w=1200&auto=format&fit=crop";
+
+document.querySelector(".result-box h2")
+.innerHTML =
+"Instagram Reel Ready";
+
+document.querySelector(".normal-btn")
+.href =
+data.url;
+
+hdLink = data.url;
+
+document.querySelector(".mp3-btn")
+.href =
+data.url;
+
+}
+
+else{
+
+alert("Platform tidak didukung");
+
+}
+
+}catch(error){
+
+alert("Video gagal diproses");
+
+}
 
 }
 
