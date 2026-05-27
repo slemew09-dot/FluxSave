@@ -1,717 +1,478 @@
 <!DOCTYPE html>
 <html lang="id">
-<head> 
+<head>
 <link rel="manifest" href="/manifest.json">
-
-<meta name="theme-color" content="#0f172a">
+<meta name="theme-color" content="#0a0a0f">
 <meta name="google-site-verification" content="z9d3lQzd7jlHUKgoRUW4Hy2nPiEjtfrev8xlFzYa-28" />
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>FluxSave - Fast Video Downloader TikTok Without Watermark</title>
-
+<meta name="description" content="UnduhTok — Download video TikTok tanpa watermark dan ekstrak audio MP3 secara gratis, cepat, dan mudah.">
+<title>UnduhTok - Download Video TikTok Tanpa Watermark</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-
 <style>
-html{
-scroll-behavior:smooth;
-}
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Poppins',sans-serif;
+html { scroll-behavior: smooth; }
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+
+body {
+  background: #0a0a0f;
+  color: #e8e8f0;
+  overflow-x: hidden;
 }
 
-body{
-background:#070b14;
-color:white;
-overflow-x:hidden;
+/* GLOW */
+.glow {
+  position: fixed;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  filter: blur(160px);
+  z-index: -1;
+  opacity: 0.12;
 }
-/* LOADING */
-
-.loader{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:#070b14;
-display:flex;
-justify-content:center;
-align-items:center;
-flex-direction:column;
-z-index:99999;
-transition:1s;
-}
-
-.loader-logo{
-font-size:50px;
-font-weight:800;
-background:linear-gradient(90deg,#00ffd5,#8b5cf6);
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
-margin-bottom:30px;
-animation:pulse 1.5s infinite;
-}
-
-.loader-bar{
-width:220px;
-height:10px;
-background:rgba(255,255,255,0.08);
-border-radius:30px;
-overflow:hidden;
-}
-
-.loader-fill{
-width:0%;
-height:100%;
-background:linear-gradient(90deg,#00ffd5,#8b5cf6);
-animation:loading 3s forwards;
-}
-
-@keyframes loading{
-to{
-width:100%;
-}
-}
-
-@keyframes pulse{
-0%{
-transform:scale(1);
-}
-50%{
-transform:scale(1.08);
-}
-100%{
-transform:scale(1);
-}
-}
-.download-buttons{
-display:flex;
-gap:15px;
-justify-content:center;
-flex-wrap:wrap;
-}
-
-.mp3-btn{
-background:linear-gradient(90deg,#ff512f,#dd2476);
-}
-
-.mp4-btn{
-background:linear-gradient(90deg,#00ffd5,#8b5cf6);
-}
-/* BACKGROUND GLOW */
-
-.glow{
-position:fixed;
-width:400px;
-height:400px;
-border-radius:50%;
-filter:blur(150px);
-z-index:-1;
-opacity:0.15;
-}
-
-.glow.one{
-background:#00ffd5;
-top:-100px;
-left:-100px;
-}
-
-.glow.two{
-background:#8b5cf6;
-bottom:-100px;
-right:-100px;
-}
+.glow.one { background: #6c63ff; top: -150px; left: -150px; }
+.glow.two { background: #ff6584; bottom: -150px; right: -150px; }
 
 /* NAVBAR */
-
-nav{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:22px 35px;
-background:rgba(255,255,255,0.03);
-backdrop-filter:blur(12px);
-border-bottom:1px solid rgba(255,255,255,0.05);
-position:sticky;
-top:0;
-z-index:999;
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  background: rgba(10,10,15,0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  position: sticky;
+  top: 0;
+  z-index: 999;
 }
 
-.logo{
-font-size:32px;
-font-weight:800;
-background:linear-gradient(90deg,#00ffd5,#8b5cf6);
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
+.logo {
+  font-size: 28px;
+  font-weight: 800;
+  background: linear-gradient(135deg, #a78bfa, #f472b6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: -0.5px;
 }
 
-.menu{
-display:flex;
-gap:20px;
+.menu { display: flex; gap: 28px; }
+.menu a {
+  text-decoration: none;
+  color: #94a3b8;
+  font-size: 14px;
+  font-weight: 500;
+  transition: 0.3s;
+  letter-spacing: 0.3px;
 }
-
-.menu a{
-text-decoration:none;
-color:#d1d5db;
-font-size:15px;
-transition:0.3s;
-}
-
-.menu a:hover{
-color:white;
-}
+.menu a:hover { color: #e8e8f0; }
 
 /* HERO */
-
-.hero{
-min-height:90vh;
-display:flex;
-justify-content:center;
-align-items:center;
-padding:50px 20px;
-text-align:center;
+.hero {
+  min-height: 92vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 20px;
+  text-align: center;
 }
 
-.hero-box{
-max-width:850px;
+.hero-box { max-width: 820px; }
+
+.hero-box h1 {
+  font-size: 64px;
+  line-height: 1.1;
+  margin-bottom: 22px;
+  font-weight: 800;
+  letter-spacing: -1px;
+  color: #f0f0fa;
 }
 
-.hero-box h1{
-font-size:68px;
-line-height:1.1;
-margin-bottom:20px;
-font-weight:800;
+.hero-box .accent {
+  background: linear-gradient(135deg, #a78bfa, #f472b6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-.hero-box span{
-background:linear-gradient(90deg,#00ffd5,#8b5cf6);
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
-}
-
-.hero-box p{
-color:#9ca3af;
-font-size:18px;
-line-height:1.8;
-margin-bottom:40px;
+.hero-box p {
+  color: #64748b;
+  font-size: 17px;
+  line-height: 1.9;
+  margin-bottom: 44px;
+  font-weight: 400;
 }
 
 /* DOWNLOAD BOX */
-
-.download-box{
-background:rgba(255,255,255,0.04);
-padding:20px;
-border-radius:30px;
-display:flex;
-gap:15px;
-align-items:center;
-backdrop-filter:blur(15px);
-border:1px solid rgba(255,255,255,0.05);
-box-shadow:0 10px 40px rgba(0,0,0,0.2);
+.download-box {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 20px;
+  padding: 12px;
 }
 
-.download-box input{
-flex:1;
-height:60px;
-border:none;
-outline:none;
-padding:0 20px;
-border-radius:18px;
-background:#111827;
-color:white;
-font-size:16px;
+.input-wrapper {
+  flex: 1;
+  position: relative;
 }
 
-.download-box button{
-height:60px;
-padding:0 30px;
-border:none;
-border-radius:18px;
-background:linear-gradient(90deg,#00ffd5,#8b5cf6);
-color:white;
-font-weight:700;
-font-size:15px;
-cursor:pointer;
-transition:0.3s;
+.input-wrapper input {
+  width: 100%;
+  height: 54px;
+  border: none;
+  outline: none;
+  padding: 0 50px 0 18px;
+  border-radius: 12px;
+  background: #13131a;
+  color: #e8e8f0;
+  font-size: 15px;
+  font-family: 'Poppins', sans-serif;
 }
 
-.download-box button:hover{
-transform:scale(1.05);
-}
+.input-wrapper input::placeholder { color: #3d3d52; }
 
-/* PLATFORM */
-
-.platforms{
-margin-top:30px;
-display:flex;
-justify-content:center;
-gap:15px;
-flex-wrap:wrap;
+.paste-btn {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 34px;
+  width: 34px;
+  border: none;
+  background: transparent;
+  color: #4b4b6a;
+  font-size: 17px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.3s;
+  border-radius: 8px;
 }
+.paste-btn:hover { color: #a78bfa; }
 
-.platform{
-padding:12px 20px;
-background:rgba(255,255,255,0.04);
-border-radius:15px;
-font-size:14px;
-color:#d1d5db;
-border:1px solid rgba(255,255,255,0.05);
+.dl-btn {
+  height: 54px;
+  padding: 0 28px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #a78bfa, #f472b6);
+  color: white;
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.3s;
+  white-space: nowrap;
+  font-family: 'Poppins', sans-serif;
 }
+.dl-btn:hover { opacity: 0.9; transform: scale(1.02); }
+.dl-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
 
 /* RESULT */
-
-.result{
-margin-top:40px;
-display:none;
-animation:fade 0.5s;
+.result {
+  margin-top: 32px;
+  display: none;
+  animation: fade 0.4s ease;
 }
 
-@keyframes fade{
-from{
-opacity:0;
-transform:translateY(20px);
-}
-to{
-opacity:1;
-transform:translateY(0);
-}
+@keyframes fade {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-.result-box{
-background:rgba(255,255,255,0.04);
-padding:25px;
-border-radius:30px;
-backdrop-filter:blur(12px);
-border:1px solid rgba(255,255,255,0.05);
+.result-box {
+  background: rgba(255,255,255,0.03);
+  padding: 28px;
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.07);
 }
 
-.result-box img{
-width:100%;
-max-width:500px;
-border-radius:20px;
-margin-bottom:20px;
+.result-box img {
+  width: 100%;
+  max-width: 460px;
+  border-radius: 16px;
+  margin-bottom: 18px;
 }
 
-.result-box h2{
-margin-bottom:10px;
+.result-box h2 { margin-bottom: 8px; font-size: 20px; color: #f0f0fa; }
+.result-box p { color: #64748b; margin-bottom: 22px; font-size: 14px; }
+
+.download-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+.download-btn {
+  display: inline-block;
+  padding: 14px 28px;
+  border-radius: 12px;
+  text-decoration: none;
+  color: white;
+  font-weight: 600;
+  font-size: 15px;
+  transition: 0.3s;
+}
+.download-btn:hover { opacity: 0.85; transform: scale(1.02); }
+.mp4-btn { background: linear-gradient(135deg, #a78bfa, #f472b6); }
+.mp3-btn { background: linear-gradient(135deg, #f472b6, #fb923c); }
+
+/* SECTIONS */
+.features { padding: 90px 20px; }
+
+.section-title {
+  text-align: center;
+  font-size: 40px;
+  margin-bottom: 55px;
+  font-weight: 800;
+  color: #f0f0fa;
+  letter-spacing: -0.5px;
 }
 
-.result-box p{
-color:#9ca3af;
-margin-bottom:20px;
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  max-width: 1200px;
+  margin: auto;
 }
 
-.download-btn{
-display:inline-block;
-padding:15px 30px;
-border-radius:16px;
-background:linear-gradient(90deg,#00ffd5,#8b5cf6);
-text-decoration:none;
-color:white;
-font-weight:700;
+.feature-card {
+  background: rgba(255,255,255,0.02);
+  padding: 28px;
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.06);
+  transition: 0.3s;
 }
-
-/* FEATURES */
-
-.features{
-padding:100px 20px;
+.feature-card:hover {
+  border-color: rgba(167,139,250,0.2);
+  transform: translateY(-6px);
+  background: rgba(167,139,250,0.04);
 }
+.feature-card h3 { margin-bottom: 12px; font-size: 20px; color: #e8e8f0; }
+.feature-card p { color: #64748b; line-height: 1.8; font-size: 14px; }
 
-.section-title{
-text-align:center;
-font-size:45px;
-margin-bottom:60px;
-font-weight:800;
+/* FAQ */
+.faq-card {
+  background: rgba(255,255,255,0.02);
+  padding: 22px 28px;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.06);
+  cursor: pointer;
+  transition: 0.3s;
 }
-
-.feature-grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:25px;
-max-width:1200px;
-margin:auto;
+.faq-card:hover { border-color: rgba(167,139,250,0.2); }
+.faq-card h3 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 16px;
+  color: #e8e8f0;
+  font-weight: 500;
 }
-
-.feature-card{
-background:rgba(255,255,255,0.04);
-padding:30px;
-border-radius:30px;
-backdrop-filter:blur(15px);
-border:1px solid rgba(255,255,255,0.05);
-transition:0.3s;
-}
-
-.feature-card:hover{
-transform:translateY(-10px);
-}
-
-.feature-card h3{
-margin-bottom:15px;
-font-size:22px;
-}
-
-.feature-card p{
-color:#9ca3af;
-line-height:1.8;
-}
-
-/* LIVE DOWNLOAD */
-
-.live-download{
-position:fixed;
-bottom:20px;
-left:20px;
-background:rgba(255,255,255,0.06);
-padding:15px 20px;
-border-radius:18px;
-backdrop-filter:blur(15px);
-font-size:14px;
-z-index:999;
-border:1px solid rgba(255,255,255,0.05);
-}
+.faq-card h3 span { font-size: 20px; transition: 0.3s; color: #a78bfa; }
+.faq-card p { display: none; margin-top: 14px; font-size: 14px; color: #64748b; line-height: 1.8; }
 
 /* FOOTER */
-
-footer{
-padding:40px 20px;
-text-align:center;
-color:#6b7280;
-border-top:1px solid rgba(255,255,255,0.05);
-margin-top:50px;
+footer {
+  padding: 40px 20px;
+  text-align: center;
+  color: #3d3d52;
+  border-top: 1px solid rgba(255,255,255,0.05);
+  margin-top: 40px;
+  font-size: 14px;
 }
+footer a { color: #a78bfa; text-decoration: none; margin: 0 10px; }
+footer a:hover { color: #f472b6; }
 
 /* MOBILE */
-
-@media(max-width:768px){
-
-.hero-box h1{
-font-size:45px;
+@media(max-width: 768px) {
+  .hero-box h1 { font-size: 40px; }
+  nav { padding: 16px 20px; }
+  .logo { font-size: 24px; }
+  .menu { gap: 16px; }
+  .menu a { font-size: 13px; }
+  .download-box { flex-direction: column; padding: 10px; }
+  .input-wrapper { width: 100%; }
+  .dl-btn { width: 100%; }
 }
-
-.download-box{
-flex-direction:column;
-}
-
-.download-box input{
-width:100%;
-}
-
-.download-box button{
-width:100%;
-}
-
-}
-
 </style>
 </head>
 <body>
-
-<!-- GLOW -->
 
 <div class="glow one"></div>
 <div class="glow two"></div>
 
 <!-- NAVBAR -->
-
 <nav>
-
-<div class="logo">
-FluxSave
-</div>
-
-<div class="menu">
-
-<a href="#home">
-Home
-</a>
-
-<a href="#features">
-Features
-</a>
-<a href="#support">
-Support
-</a>
-
-</div>
-
+  <div class="logo">UnduhTok</div>
+  <div class="menu">
+    <a href="#home">Beranda</a>
+    <a href="#features">Fitur</a>
+    <a href="#faq">FAQ</a>
+    <a href="#support">Dukungan</a>
+  </div>
 </nav>
 
 <!-- HERO -->
-
 <section class="hero" id="home">
+  <div class="hero-box">
 
-<div class="hero-box">
+    <h1>Download TikTok <span class="accent">Tanpa Watermark</span></h1>
+    <p>Unduh video TikTok dalam kualitas HD tanpa watermark,<br>atau ekstrak audio MP3 — gratis, cepat, tanpa aplikasi.</p>
 
-<h1>
-TikTok Downloader <span>Free & No Limits</span>
-</h1>
+    <div class="download-box">
+      <div class="input-wrapper">
+        <input type="text" id="videoInput" placeholder="Paste link TikTok kamu di sini...">
+        <button class="paste-btn" onclick="pasteFromClipboard()" title="Paste dari clipboard">📋</button>
+      </div>
+      <button class="dl-btn" onclick="downloadVideo()">Download</button>
+    </div>
 
-<p>
-TikTok downloader — save videos without watermark & extract MP3 audio.
-</p>
+    <!-- RESULT -->
+    <div class="result" id="result">
+      <div class="result-box">
+        <img src="" id="thumbImg">
+        <h2 id="videoTitle">Video Siap</h2>
+        <p>Video kamu sudah berhasil diproses.</p>
+        <div class="download-buttons">
+          <a href="#" id="mp4Link" class="download-btn mp4-btn" target="_blank">⬇ Download Video</a>
+          <a href="#" id="mp3Link" class="download-btn mp3-btn" target="_blank">🎵 Download MP3</a>
+        </div>
+      </div>
+    </div>
 
-<div class="download-box">
-
-<input
-type="text"
-id="videoInput"
-placeholder="Paste TikTok link here..."
->
-
-<button onclick="downloadVideo()">
-Download
-</button>
-
-</div>
-
-<div class="platforms">
-
-<div>
-
-
-<!-- RESULT -->
-
-<div class="result" id="result">
-
-<div class="result-box">
-
-<img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop">
-
-<h2>
-Video Ready
-</h2>
-
-<p>
-Your video has been processed successfully.
-</p>
-
-<div class="download-buttons">
-
-<a href="#" id="mp4Link" class="download-btn mp4-btn" target="_blank">
-Download Video
-</a>
-
-<a href="#" id="mp3Link" class="download-btn mp3-btn" target="_blank">
-Download MP3
-</a>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-
+  </div>
 </section>
-<!-- HOW TO DOWNLOAD -->
+
+<!-- CARA DOWNLOAD -->
 <section class="features" id="how-to">
+  <h2 class="section-title">Cara Download</h2>
+  <div style="max-width:700px; margin:auto; display:flex; flex-direction:column; gap:30px;">
 
-<h2 class="section-title">How to Download</h2>
-
-<div style="max-width:700px; margin:auto; display:flex; flex-direction:column; gap:40px;">
-
-  <!-- STEP 1 -->
-  <div class="feature-card" style="display:flex; flex-direction:column; align-items:center; gap:20px;">
-    <img src="screenshot1.jpg" style="width:100%; max-width:280px; border-radius:20px; border:1px solid rgba(255,255,255,0.08);">
-    <div style="text-align:center;">
-      <div style="background:linear-gradient(90deg,#00ffd5,#8b5cf6); -webkit-background-clip:text; -webkit-text-fill-color:transparent; font-size:14px; font-weight:700; margin-bottom:8px;">STEP 1</div>
-      <h3 style="margin-bottom:10px;">Copy Link TikTok</h3>
-      <p>Buka TikTok dan temukan video yang ingin kamu simpan. Tap tombol <strong>Share</strong>, lalu pilih <strong>Salin Tautan</strong> untuk menyalin link videonya.</p>
+    <div class="feature-card" style="display:flex; flex-direction:column; align-items:center; gap:20px;">
+      <img src="screenshot1.jpg" style="width:100%; max-width:260px; border-radius:16px; border:1px solid rgba(255,255,255,0.07);">
+      <div style="text-align:center;">
+        <div style="background:linear-gradient(135deg,#a78bfa,#f472b6); -webkit-background-clip:text; -webkit-text-fill-color:transparent; font-size:13px; font-weight:700; margin-bottom:8px; letter-spacing:1px;">LANGKAH 1</div>
+        <h3 style="margin-bottom:10px; color:#e8e8f0;">Salin Link TikTok</h3>
+        <p>Buka TikTok, temukan video yang ingin disimpan. Tap <strong>Bagikan</strong> lalu pilih <strong>Salin Tautan</strong>.</p>
+      </div>
     </div>
-  </div>
 
-  <!-- STEP 2 -->
-  <div class="feature-card" style="display:flex; flex-direction:column; align-items:center; gap:20px;">
-    <img src="screenshot2.jpg" style="width:100%; max-width:280px; border-radius:20px; border:1px solid rgba(255,255,255,0.08);">
-    <div style="text-align:center;">
-      <div style="background:linear-gradient(90deg,#00ffd5,#8b5cf6); -webkit-background-clip:text; -webkit-text-fill-color:transparent; font-size:14px; font-weight:700; margin-bottom:8px;">STEP 2</div>
-      <h3 style="margin-bottom:10px;">Paste & Download</h3>
-      <p>Buka FluxSave, paste link TikTok ke kolom input, lalu klik tombol <strong>Download</strong> dan tunggu beberapa detik.</p>
+    <div class="feature-card" style="display:flex; flex-direction:column; align-items:center; gap:20px;">
+      <img src="screenshot2.jpg" style="width:100%; max-width:260px; border-radius:16px; border:1px solid rgba(255,255,255,0.07);">
+      <div style="text-align:center;">
+        <div style="background:linear-gradient(135deg,#a78bfa,#f472b6); -webkit-background-clip:text; -webkit-text-fill-color:transparent; font-size:13px; font-weight:700; margin-bottom:8px; letter-spacing:1px;">LANGKAH 2</div>
+        <h3 style="margin-bottom:10px; color:#e8e8f0;">Paste & Download</h3>
+        <p>Buka UnduhTok, paste link ke kolom input, lalu klik tombol <strong>Download</strong>.</p>
+      </div>
     </div>
-  </div>
 
-  <!-- STEP 3 -->
-  <div class="feature-card" style="display:flex; flex-direction:column; align-items:center; gap:20px;">
-    <img src="screenshot3.jpg" style="width:100%; max-width:280px; border-radius:20px; border:1px solid rgba(255,255,255,0.08);">
-    <div style="text-align:center;">
-      <div style="background:linear-gradient(90deg,#00ffd5,#8b5cf6); -webkit-background-clip:text; -webkit-text-fill-color:transparent; font-size:14px; font-weight:700; margin-bottom:8px;">STEP 3</div>
-      <h3 style="margin-bottom:10px;">Pilih Format</h3>
-      <p>Setelah diproses, pilih <strong>Download Video</strong> untuk video tanpa watermark, atau <strong>Download MP3</strong> untuk audio saja.</p>
+    <div class="feature-card" style="display:flex; flex-direction:column; align-items:center; gap:20px;">
+      <img src="screenshot3.jpg" style="width:100%; max-width:260px; border-radius:16px; border:1px solid rgba(255,255,255,0.07);">
+      <div style="text-align:center;">
+        <div style="background:linear-gradient(135deg,#a78bfa,#f472b6); -webkit-background-clip:text; -webkit-text-fill-color:transparent; font-size:13px; font-weight:700; margin-bottom:8px; letter-spacing:1px;">LANGKAH 3</div>
+        <h3 style="margin-bottom:10px; color:#e8e8f0;">Pilih Format</h3>
+        <p>Pilih <strong>Download Video</strong> untuk video tanpa watermark, atau <strong>Download MP3</strong> untuk audio.</p>
+      </div>
     </div>
+
   </div>
-
-</div>
-
 </section>
-<!-- FEATURES -->
 
+<!-- FITUR -->
 <section class="features" id="features">
-
-<!-- FEATURES -->
-
-<section class="features" id="features">
-
-<h2 class="section-title">
-Why FluxSave?
-</h2>
-
-<div class="feature-grid">
-
-<div class="feature-card">
-
-<h3>
-⚡ Ultra Fast
-</h3>
-
-<p>
-Download video with blazing fast processing speed.
-</p>
-
-</div>
-
-<div class="feature-card">
-
-<h3>
-🎥 HD Quality
-</h3>
-
-<p>
-Supports HD and high quality video download.
-</p>
-
-</div>
-
-<div class="feature-card">
-
-<h3>
-🚫 No Watermark
-</h3>
-
-<p>
-TikTok download without annoying watermark.
-</p>
-
-</div>
-
-<div class="feature-card">
-
-<h3>
-📱 Mobile Friendly
-</h3>
-
-<p>
-Optimized for Android, iPhone and desktop devices.
-</p>
-
-</div>
-
-</div>
-
+  <h2 class="section-title">Kenapa UnduhTok?</h2>
+  <div class="feature-grid">
+    <div class="feature-card">
+      <h3>⚡ Proses Instan</h3>
+      <p>Unduh video TikTok dalam hitungan detik tanpa antrian dan tanpa hambatan.</p>
+    </div>
+    <div class="feature-card">
+      <h3>🎥 Resolusi Tinggi</h3>
+      <p>Dapatkan video dengan kualitas terbaik hingga HD langsung dari sumbernya.</p>
+    </div>
+    <div class="feature-card">
+      <h3>🚫 Tanpa Watermark</h3>
+      <p>Video yang diunduh bersih tanpa watermark — siap digunakan kapan saja.</p>
+    </div>
+    <div class="feature-card">
+      <h3>📱 Semua Perangkat</h3>
+      <p>Dapat diakses dari smartphone, tablet, maupun komputer tanpa instalasi apapun.</p>
+    </div>
+  </div>
 </section>
-<!-- FOOTER -->
+
+<!-- FAQ -->
+<section class="features" id="faq">
+  <h2 class="section-title">Pertanyaan Umum</h2>
+  <div style="max-width:780px; margin:auto; display:flex; flex-direction:column; gap:12px;">
+
+    <div class="faq-card" onclick="toggleFaq(this)">
+      <h3>Apakah UnduhTok gratis digunakan? <span>+</span></h3>
+      <p>Ya, UnduhTok sepenuhnya gratis. Tidak ada biaya tersembunyi maupun langganan berbayar untuk mengunduh video TikTok.</p>
+    </div>
+
+    <div class="faq-card" onclick="toggleFaq(this)">
+      <h3>Apakah video yang diunduh benar-benar tanpa watermark? <span>+</span></h3>
+      <p>Ya, semua video yang diunduh melalui UnduhTok bebas dari watermark TikTok sehingga kualitas video tetap bersih dan jernih.</p>
+    </div>
+
+    <div class="faq-card" onclick="toggleFaq(this)">
+      <h3>Bagaimana cara mengunduh audio MP3 dari TikTok? <span>+</span></h3>
+      <p>Paste link TikTok ke kolom input, klik Download, lalu pilih tombol Download MP3 pada hasil yang muncul.</p>
+    </div>
+
+    <div class="faq-card" onclick="toggleFaq(this)">
+      <h3>Apakah UnduhTok aman digunakan? <span>+</span></h3>
+      <p>Tentu. UnduhTok tidak menyimpan data pribadi pengguna maupun video yang diunduh. Semua proses berjalan secara langsung tanpa penyimpanan di server kami.</p>
+    </div>
+
+    <div class="faq-card" onclick="toggleFaq(this)">
+      <h3>Kenapa video gagal diproses? <span>+</span></h3>
+      <p>Pastikan link yang digunakan adalah link TikTok yang valid dan video tidak bersifat privat. Jika masalah berlanjut, coba refresh halaman dan ulangi proses.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- DUKUNGAN -->
 <section class="features" id="support">
-
-<h2 class="section-title">
-Support Center
-</h2>
-
-<div class="feature-grid">
-
-<div class="feature-card">
-
-<h3>
-💬 WhatsApp Support
-</h3>
-
-<p>
-Contact the admin if you experience problems downloading videos.
-</p>
-
-<a href="https://wa.me/6283837945531" class="download-btn">
-Chat Admin
-</a>
-
-</div>
-
-<div class="feature-card">
-
-<h3>
-⚡ Fast Response
-</h3>
-
-<p>
-Customer service is online and ready to help anytime.
-</p>
-
-</div>
-
-<div class="feature-card">
-
-<h3>
-🛠 Report Bug
-</h3>
-
-<p>
-Report bugs or website errors so they can be fixed immediately.
-</p>
-
-</div>
-
-</div>
-
+  <h2 class="section-title">Pusat Bantuan</h2>
+  <div class="feature-grid">
+    <div class="feature-card">
+      <h3>💬 Hubungi Admin</h3>
+      <p>Temui kendala saat mengunduh? Tim kami siap membantu melalui WhatsApp.</p>
+      <br>
+      <a href="https://wa.me/6283837945531" class="download-btn mp4-btn" style="font-size:14px; padding:12px 22px;">Chat Admin</a>
+    </div>
+    <div class="feature-card">
+      <h3>⚡ Respons Cepat</h3>
+      <p>Kami berkomitmen memberikan tanggapan yang cepat dan solusi yang tepat.</p>
+    </div>
+    <div class="feature-card">
+      <h3>🛠 Laporkan Masalah</h3>
+      <p>Temukan bug atau gangguan pada layanan? Laporkan agar segera kami tangani.</p>
+    </div>
+  </div>
 </section>
+
+<footer>
+  <p>© 2026 UnduhTok. Dibuat dengan ❤️ untuk pengguna TikTok Indonesia.</p>
+  <div style="margin-top:12px;">
+    <a href="/privacy-policy.html">Kebijakan Privasi</a>
+    <a href="/about.html">Tentang Kami</a>
+  </div>
+</footer>
 
 <script>
-/* LOADER SEKALI SAJA */
-
-window.addEventListener("load",()=>{
-
-if(sessionStorage.getItem("loaded")){
-
-document.getElementById("loader")
-.style.display = "none";
-
-}else{
-
-sessionStorage.setItem("loaded","true");
-
-setTimeout(()=>{
-
-document.getElementById("loader")
-.style.opacity = "0";
-
-setTimeout(()=>{
-
-document.getElementById("loader")
-.style.display = "none";
-
-},1000)
-
-},3000)
-
-}
-
-})
 async function downloadVideo() {
   const input = document.getElementById("videoInput").value.trim();
-
-  if (!input) {
-    alert("Paste link TikTok terlebih dahulu");
-    return;
-  }
-
+  if (!input) { alert("Paste link TikTok terlebih dahulu"); return; }
   if (!input.includes("tiktok.com") && !input.includes("vt.tiktok.com")) {
     alert("Saat ini hanya mendukung link TikTok");
     return;
   }
 
-  const btn = document.querySelector(".download-box button");
-  btn.textContent = "Processing...";
+  const btn = document.querySelector(".dl-btn");
+  btn.textContent = "Memproses...";
   btn.disabled = true;
 
   try {
@@ -724,15 +485,11 @@ async function downloadVideo() {
     }
 
     const v = data.data;
-
     document.getElementById("result").style.display = "block";
-    document.querySelector(".result-box img").src = v.cover || "";
-    document.querySelector(".result-box h2").innerHTML = v.title ? v.title.substring(0, 60) + "..." : "TikTok Video Ready";
-    document.querySelector(".result-box p").innerHTML = "Video tanpa watermark siap didownload.";
-
+    document.getElementById("thumbImg").src = v.cover || "";
+    document.getElementById("videoTitle").innerHTML = v.title ? v.title.substring(0, 60) + "..." : "Video Siap";
     document.getElementById("mp4Link").href = v.hdplay || v.play || "#";
     document.getElementById("mp3Link").href = v.music || "#";
-
     document.getElementById("result").scrollIntoView({ behavior: "smooth" });
 
   } catch (error) {
@@ -743,40 +500,30 @@ async function downloadVideo() {
   }
 }
 
-/* LIVE DOWNLOAD */
-
-const downloads = [
-
-"🔥 User from Indonesia downloaded TikTok video",
-
-"🔥 User from Malaysia downloaded YouTube video",
-
-"🔥 User from Singapore downloaded Instagram Reel",
-
-"🔥 User from Thailand downloaded Facebook video"
-
-];
-
-function changeLive(){
-
-const random =
-downloads[Math.floor(Math.random()*downloads.length)];
-
-document.getElementById("liveDownload")
-.innerHTML = random;
-
+async function pasteFromClipboard() {
+  try {
+    const text = await navigator.clipboard.readText();
+    document.getElementById("videoInput").value = text;
+    if (text.includes("tiktok.com") || text.includes("vt.tiktok.com")) {
+      downloadVideo();
+    }
+  } catch (err) {
+    alert("Izinkan akses clipboard di browser kamu.");
+  }
 }
 
-setInterval(changeLive,5000);
+function toggleFaq(el) {
+  const answer = el.querySelector('p');
+  const icon = el.querySelector('span');
+  const isOpen = answer.style.display === 'block';
+  answer.style.display = isOpen ? 'none' : 'block';
+  icon.style.transform = isOpen ? 'rotate(0deg)' : 'rotate(45deg)';
+}
 
+document.getElementById("videoInput").addEventListener("keydown", e => {
+  if (e.key === "Enter") downloadVideo();
+});
 </script>
-<footer
-<p style="color:#64748b;">© 2026 FluxSave.</p>
 
-  <div>
-    <a href="/privacy-policy.html" style="margin:0 10px; color:#38bdf8;">Privacy Policy</a>
-    <a href="/about.html" style="margin:0 10px; color:#38bdf8;">About</a>
-  </div>
-</footer>
 </body>
 </html>
