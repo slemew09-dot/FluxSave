@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
   <url>
     <loc>https://flux-save-five.vercel.app/</loc>
   </url>
+
+  <url>
+    <loc>https://flux-save-five.vercel.app/tiktok.html</loc>
+  </url>
+
+  <url>
+    <loc>https://flux-save-five.vercel.app/instagram.html</loc>
+  </url>
+
+  <url>
+    <loc>https://flux-save-five.vercel.app/youtube.html</loc>
+  </url>
+
+  <url>
+    <loc>https://flux-save-five.vercel.app/privacy-policy.html</loc>
+  </url>
+
 </urlset>
