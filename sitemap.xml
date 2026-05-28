@@ -2,23 +2,31 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
   <url>
-    <loc>https://flux-save-five.vercel.app/</loc>
+    <loc>https://unduh-tok-five.vercel.app/</loc>
+    <lastmod>2026-01-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
   </url>
 
   <url>
-    <loc>https://flux-save-five.vercel.app/tiktok.html</loc>
+    <loc>https://unduh-tok-five.vercel.app/about.html</loc>
+    <lastmod>2026-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
   </url>
 
   <url>
-    <loc>https://flux-save-five.vercel.app/instagram.html</loc>
+    <loc>https://unduh-tok-five.vercel.app/privacy-policy.html</loc>
+    <lastmod>2026-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
   </url>
 
   <url>
-    <loc>https://flux-save-five.vercel.app/youtube.html</loc>
-  </url>
-
-  <url>
-    <loc>https://flux-save-five.vercel.app/privacy-policy.html</loc>
+    <loc>https://unduh-tok-five.vercel.app/terms.html</loc>
+    <lastmod>2026-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
   </url>
 
 </urlset>
