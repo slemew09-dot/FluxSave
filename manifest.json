@@ -1,21 +1,24 @@
 {
-  "name": "FluxSave",
-  "short_name": "FluxSave",
+  "name": "UnduhTok - Download TikTok Tanpa Watermark",
+  "short_name": "UnduhTok",
+  "description": "Download video TikTok tanpa watermark dan ekstrak audio MP3 secara gratis.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#0f172a",
-  "theme_color": "#0f172a",
-  "description": "Download videos from TikTok, Instagram, and YouTube",
+  "background_color": "#0a0a0f",
+  "theme_color": "#a78bfa",
+  "orientation": "portrait",
   "icons": [
     {
-      "src": "/icon.png",
+      "src": "/icons/icon-192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     },
     {
-      "src": "/icon.png",
+      "src": "/icons/icon-512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ]
 }

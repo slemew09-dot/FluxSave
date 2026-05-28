@@ -458,6 +458,7 @@ footer a:hover { color: #f472b6; }
   <p>© 2026 UnduhTok. Dibuat dengan ❤️ untuk pengguna TikTok Indonesia.</p>
   <div style="margin-top:12px;">
     <a href="/privacy-policy.html">Kebijakan Privasi</a>
+    <a href="/terms.html">Syarat & Ketentuan</a>
     <a href="/about.html">Tentang Kami</a>
   </div>
 </footer>
@@ -502,13 +503,21 @@ async function downloadVideo() {
 
 async function pasteFromClipboard() {
   try {
-    const text = await navigator.clipboard.readText();
-    document.getElementById("videoInput").value = text;
-    if (text.includes("tiktok.com") || text.includes("vt.tiktok.com")) {
-      downloadVideo();
+    if (navigator.clipboard && navigator.clipboard.readText) {
+      const text = await navigator.clipboard.readText();
+      document.getElementById("videoInput").value = text;
+      if (text.includes("tiktok.com") || text.includes("vt.tiktok.com")) {
+        downloadVideo();
+      }
+    } else {
+      // Fallback untuk browser yang ga support
+      document.getElementById("videoInput").focus();
+      document.execCommand("paste");
     }
   } catch (err) {
-    alert("Izinkan akses clipboard di browser kamu.");
+    // Fallback — fokus ke input, user paste manual
+    document.getElementById("videoInput").focus();
+    alert("Tap & tahan di kolom input, lalu pilih Tempel.");
   }
 }
 
@@ -523,6 +532,14 @@ function toggleFaq(el) {
 document.getElementById("videoInput").addEventListener("keydown", e => {
   if (e.key === "Enter") downloadVideo();
 });
+// REGISTER SERVICE WORKER
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js')
+      .then(() => console.log('SW registered'))
+      .catch(() => console.log('SW failed'));
+  });
+}
 </script>
 
 </body>
