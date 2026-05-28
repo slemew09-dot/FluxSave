@@ -18,6 +18,12 @@ body {
   color: #e8e8f0;
   overflow-x: hidden;
 }
+.faq-card p {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, margin-top 0.3s ease;
+  margin-top: 0;
+}
 
 /* GLOW */
 .glow {
@@ -524,9 +530,17 @@ async function pasteFromClipboard() {
 function toggleFaq(el) {
   const answer = el.querySelector('p');
   const icon = el.querySelector('span');
-  const isOpen = answer.style.display === 'block';
-  answer.style.display = isOpen ? 'none' : 'block';
-  icon.style.transform = isOpen ? 'rotate(0deg)' : 'rotate(45deg)';
+  const isOpen = answer.style.maxHeight && answer.style.maxHeight !== '0px';
+
+  if (isOpen) {
+    answer.style.maxHeight = '0px';
+    answer.style.marginTop = '0';
+    icon.style.transform = 'rotate(0deg)';
+  } else {
+    answer.style.maxHeight = answer.scrollHeight + 'px';
+    answer.style.marginTop = '14px';
+    icon.style.transform = 'rotate(45deg)';
+  }
 }
 
 document.getElementById("videoInput").addEventListener("keydown", e => {
