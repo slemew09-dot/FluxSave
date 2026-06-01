@@ -1,30 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
 
+  <!-- Halaman Utama -->
   <url>
     <loc>https://unduh-tok-five.vercel.app/</loc>
-    <lastmod>2026-01-01</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="id" href="https://unduh-tok-five.vercel.app/"/>
   </url>
 
-  <url>
-    <loc>https://unduh-tok-five.vercel.app/about.html</loc>
-    <lastmod>2026-01-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-
+  <!-- Halaman Kebijakan Privasi -->
   <url>
     <loc>https://unduh-tok-five.vercel.app/privacy-policy.html</loc>
-    <lastmod>2026-01-01</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
+    <priority>0.4</priority>
   </url>
 
+  <!-- Halaman Syarat & Ketentuan -->
   <url>
     <loc>https://unduh-tok-five.vercel.app/terms.html</loc>
-    <lastmod>2026-01-01</lastmod>
+    <lastmod>2026-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+
+  <!-- Halaman Tentang Kami -->
+  <url>
+    <loc>https://unduh-tok-five.vercel.app/about.html</loc>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
